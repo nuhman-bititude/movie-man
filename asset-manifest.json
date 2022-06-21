@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/movie-man/static/css/main.93cba225.css",
+    "main.js": "/movie-man/static/js/main.dc8ba8fb.js",
+    "index.html": "/movie-man/index.html",
+    "main.93cba225.css.map": "/movie-man/static/css/main.93cba225.css.map",
+    "main.dc8ba8fb.js.map": "/movie-man/static/js/main.dc8ba8fb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93cba225.css",
+    "static/js/main.dc8ba8fb.js"
+  ]
+}
