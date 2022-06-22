@@ -13,16 +13,14 @@ function App() {
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
   const [trending, setTrending] = useState([]);
-  // const [error, setError] = useState("");
   const searchMovies = async (title) => {
     const response = await fetch(`${OMDB_API_URL}&s=${title}`);
     const data = await response.json();
     setError(data.Response);
     if (data.Response === "True") {
       setMovies(data.Search);
-      console.log(error);
     } else {
-      console.log(error);
+      setError(data.Response);
     }
     console.log("Search Completed");
   };
@@ -32,7 +30,6 @@ function App() {
         `https://api.themoviedb.org/3/trending/all/day?api_key=${TMDB_API_KEY}`
       )
       .then(function (trending) {
-        console.log(trending.data);
         setTrending(trending.data.results);
       });
   };
@@ -67,8 +64,9 @@ function App() {
           </div>
         )}
       </div>
-      <div className="container">
-        <div>
+      <div>
+        <p className="lead">Trending Now</p>
+        <div className="container">
           {trending.map((trend) => (
             <TrendCard key={trend.id} trend={trend} />
           ))}

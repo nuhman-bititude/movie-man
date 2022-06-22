@@ -2,8 +2,8 @@ import React from "react";
 
 function TrendCard({ trend }) {
   return (
-    <>
-      <div className="trend">
+    <div>
+      <div className="movie">
         <div>
           <p>{trend.vote_average}⭐</p>
         </div>
@@ -16,13 +16,13 @@ function TrendCard({ trend }) {
         <div>
           <span>{trend.media_type}</span>
           {trend.media_type === "movie" ? (
-            <h3>{trend.original_title}</h3>
+            <h3>{trend.title}</h3>
           ) : (
             <h3>{trend.original_name}</h3>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
