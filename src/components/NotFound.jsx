@@ -7,7 +7,7 @@ function NotFound() {
       <div className="error-notice">
         <div className="oaerror danger">
           <strong>Oops</strong>
-          <p>- Couldn't find the Movie Please try again.</p>
+          <p className="error-p">- Couldn't find the Movie Please try again.</p>
         </div>
       </div>
     </div>
