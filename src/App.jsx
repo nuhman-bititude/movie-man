@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import MovieCard from "./components/MovieCard";
 import NotFound from "./components/NotFound";
+import MovieCard from "./components/MovieCard";
+import Search from "./components/Search";
+import axios from "axios";
 import "./App.css";
 
-const API_URL = "https://www.omdbapi.com?apikey=cc123a73";
-
+const OMDB_API_URL = "https://www.omdbapi.com?apikey=cc123a73";
+const TMDB_API_KEY = "5c18f122ec393a55f5b7d804a52fad34";
 function App() {
   const [movies, setMovies] = useState([]);
   const [search, setSearch] = useState("");
   const [error, setError] = useState("False");
   // const [error, setError] = useState("");
-  const serachMovies = async (title) => {
-    const response = await fetch(`${API_URL}&s=${title}`);
+  const searchMovies = async (title) => {
+    const response = await fetch(`${OMDB_API_URL}&s=${title}`);
     const data = await response.json();
     setError(data.Response);
     if (data.Response === "True") {
@@ -22,34 +24,32 @@ function App() {
     }
     console.log("Search Completed");
   };
-  useEffect(() => {}, []);
+  const findTrending = () => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/trenddfsing/alfdl/day?api_key=${TMDB_API_KEY}`
+      )
+      .then(function (trending) {
+        // handle success
+        console.log(trending.data.results);
+      });
+  };
+  useEffect(() => {
+    findTrending();
+  }, []);
 
   return (
     <div>
       <div className="app">
         <h2>Movie Man</h2>
-        <div className="search">
-          <input
-            type="text"
-            placeholder="Search for movies"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-          {search.length > 1 ? (
-            <img
-              src="https://cdn0.iconfinder.com/data/icons/TWG_Retina_Icons/64/magnifier.png"
-              alt="Search-icon"
-              onClick={() => {
-                console.log("Loading");
-                serachMovies(search);
-              }}
-            />
-          ) : (
-            ""
-          )}
-        </div>
+        <Search
+          search={search}
+          setSearch={setSearch}
+          searchMovies={searchMovies}
+        />
+        <div className="trending"></div>
+      </div>
+      <div className="search-results">
         {error === "Fasle" ? (
           <NotFound />
         ) : (
